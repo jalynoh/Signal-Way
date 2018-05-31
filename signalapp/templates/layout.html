@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+	{% if title %}
+		<title>Signal Way - {{ title }}</title>
+	{% else %}
+		<title>Signal Way</title>
+	{% endif %}
+</head>
+<body>
+	<header>
+		<nav>
+			<ul>
+				<div class="navbar-right">
+					<li><a href="{{ url_for('home') }}">Home</a></li>
+					<li><a href="#NEEDSET"></a>Buttons</li>
+				</div>
+				<div class="navbar-left">
+					{% if current_user.is_authenticated %}
+						<li><a href="#LOGOUT">Logout</a></li>
+					{% else %}
+						<li><a href="#ADMINPANEL">Admin Panel</a></li>
+					{% endif %}
+				</div>
+			</ul>
+		</nav>
+	</header>
+	<main>
+		<div>
+			{% with messages = get_flashed_messages() %}
+				{% if messages %}
+					{{ message }}
+				{% endif %}
+			{% endwith %}
+
+			{% block content %}{% endblock %}
+		</div>
+	</main>
+</body>
+</html>
