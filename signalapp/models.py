@@ -6,6 +6,16 @@ from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 from signalapp import db, login_manager, app
 
 
+# Manages user sessions
+@login_manager.user_loader
+def load_user(user_id):
+	return (User.query.get(int(user_id)))
+
+def get_invite_token(expires_sec=1800):
+	s = Serializer(app.config['SECRET_KEY'], expires_sec)
+	return (s.dumps({'email_id': id}))
+
+
 # User table
 class User(db.Model, UserMixin):
 	id = db.Column(db.Integer, primary_key=True)

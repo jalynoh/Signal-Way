@@ -1,3 +1,8 @@
+# Self Added Ignores
+local_envars.py
+
+
+# PRE DEFINED GITIGNORES 
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

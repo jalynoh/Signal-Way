@@ -1,0 +1,18 @@
+.div-btn {
+	text-align: center;
+}
+
+.btn-login {
+	background-color: #6c7a89;
+	color: #ffffff;
+	font-size: 20px;
+	padding: 14px 16px;
+	margin: 0 auto;
+	width: 50%;
+	
+}
+
+
+.btn-login:hover {
+    opacity: 0.8;
+}

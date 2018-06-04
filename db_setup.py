@@ -1,9 +1,11 @@
 from signalapp import db
 from signalapp.models import User
+from signalapp import bcrypt
 
 db.create_all()
 
 
-admin = User(email='admin@signalway.com', password='test')
+hashed_password = bcrypt.generate_password_hash('test').decode('utf-8')
+admin = User(email='admin@signalway.com', password=hashed_password)
 db.session.add(admin)
 db.session.commit()

@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/main.css') }}">
+
+
 	{% if title %}
 		<title>Signal Way - {{ title }}</title>
 	{% else %}
@@ -11,17 +14,10 @@
 	<header>
 		<nav>
 			<ul>
-				<div class="navbar-right">
-					<li><a href="{{ url_for('home') }}">Home</a></li>
-					<li><a href="#NEEDSET"></a>Buttons</li>
-				</div>
-				<div class="navbar-left">
-					{% if current_user.is_authenticated %}
-						<li><a href="#LOGOUT">Logout</a></li>
-					{% else %}
-						<li><a href="#ADMINPANEL">Admin Panel</a></li>
-					{% endif %}
-				</div>
+				<li><a href="{{ url_for('home') }}">Home</a></li>
+				<li><a href="#NEEDSET">Buttons</a></li>
+				<li class="li-nav-right"><a href="{{ url_for('admin') }}">Admin</a></li>
+				<li class="li-nav-right"><a href="{{ url_for('logout') }}">Logout</a></li>
 			</ul>
 		</nav>
 	</header>

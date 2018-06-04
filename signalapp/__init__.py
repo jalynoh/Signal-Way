@@ -1,4 +1,5 @@
 import os
+import local_envars
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy  # Flask DB Integration
 from flask_bcrypt import Bcrypt
@@ -6,10 +7,20 @@ from flask_login import LoginManager
 from flask_mail import Mail
 
 
+local_envars.set_variables()
+
 # Configurations
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'ThisIsAKey'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
+app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0  # Only for debugging to update CSS
+app.config['SECRET_KEY'] = os.environ['SECRET_KEY']  # Used to prevent CSRF
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URI']
+# Mail Configurations
+app.config['MAIL_SERVER'] = os.environ['MAIL_SERVER']
+app.config['MAIL_PORT'] = int(os.environ['MAIL_PORT'])
+app.config['MAIL_USE_TLS'] = True  # Email encryption
+app.config['MAIL_USERNAME'] = os.environ['EMAIL']
+app.config['MAIL_PASSWORD'] = os.environ['PASS']
+
 
 
 # Instantiations
