@@ -3,10 +3,10 @@ import local_envars
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy  # Flask DB Integration
 from flask_bcrypt import Bcrypt
-from flask_login import LoginManager
+from flask_login import LoginManager, current_user
 from flask_mail import Mail
 
-
+# Local enviornment variables for testing
 local_envars.set_variables()
 
 # Configurations
@@ -31,6 +31,8 @@ mail = Mail(app)
 
 # Flask login settings
 login_manager.login_view = 'login'
+
+
 
 
 from signalapp import routes  # To prevnt potential circular imports

@@ -13,7 +13,3 @@ class LoginForm(FlaskForm):
 	password = PasswordField('Password', validators=[DataRequired()])
 	remember = BooleanField('Remeber Me')
 	submit = SubmitField('Login')
-
-class InviteUserForm(FlaskForm):
-	email = StringField('Email', validators=[DataRequired(), Email()])
-	submit = SubmitField('Invite User')

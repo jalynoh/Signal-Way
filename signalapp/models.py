@@ -6,27 +6,39 @@ from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 from signalapp import db, login_manager, app
 
 
+# UTIL methods
 # Manages user sessions
 @login_manager.user_loader
 def load_user(user_id):
 	return (User.query.get(int(user_id)))
 
-def get_invite_token(expires_sec=1800):
-	s = Serializer(app.config['SECRET_KEY'], expires_sec)
-	return (s.dumps({'email_id': id}))
-
 
 # User table
 class User(db.Model, UserMixin):
 	id = db.Column(db.Integer, primary_key=True)
-	email = db.Column(db.String(120), unique=True, nullable=False)
-	password = db.Column(db.String(60), nullable=False, default='signalway')
+
+	# User information
+	first_name = db.Column(db.String(50), nullable=False)
+	last_name = db.Column(db.String(50), nullable=False)
+	date_created = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+	role = db.Column(db.String(80), nullable=False)
 	buttons_tested = db.relationship('Button', backref='tester', lazy=True)
 
-	def __repr__(self):
-		return (f"User('{self.email}')")
+	# User authentication
+	email = db.Column(db.String(120), unique=True, nullable=False)
+	password = db.Column(db.String(60), nullable=False, default='signalway')
 
+	def set_user_role(self, role):
+		self.role = role
+
+	def get_user_role(self):
+		return (self.role)
+
+
+
+# Panic button table
 class Button(db.Model):
+	__tablename__ = 'button'
 	id = db.Column(db.Integer, primary_key=True)
 	district = db.Column(db.String(20), nullable=False)
 	building = db.Column(db.String(160), nullable=False)
