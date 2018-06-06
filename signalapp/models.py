@@ -18,10 +18,10 @@ class User(db.Model, UserMixin):
 	id = db.Column(db.Integer, primary_key=True)
 
 	# User information
-	first_name = db.Column(db.String(50), nullable=False)
-	last_name = db.Column(db.String(50), nullable=False)
+	first_name = db.Column(db.String(50), nullable=False, default='not created')
+	last_name = db.Column(db.String(50), nullable=False, default='not created')
 	date_created = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
-	role = db.Column(db.String(80), nullable=False)
+	role = db.Column(db.String(80), nullable=False, default='user')
 	buttons_tested = db.relationship('Button', backref='tester', lazy=True)
 
 	# User authentication
@@ -33,6 +33,21 @@ class User(db.Model, UserMixin):
 
 	def get_user_role(self):
 		return (self.role)
+
+	def get_invite_token(self, expires_sec=1800):
+		s = Serializer(app.config['SECRET_KEY'], expires_sec)
+		return(s.dumps({'user_id': self.id}).decode('utf-8'))
+
+	@staticmethod
+	def verify_invite_token(token):
+		s = Serializer(app.config['SECRET_KEY'])
+
+		try:
+			user_id = s.loads(token)['user_id']
+		except:
+			return(None)
+
+		return(User.query.get(user_id))
 
 
 

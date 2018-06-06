@@ -8,7 +8,7 @@ from flask_mail import Message
 # Self developed imports
 from signalapp import app, db, bcrypt, mail
 from signalapp.models import User, Button
-from signalapp.forms import LoginForm
+from signalapp.forms import LoginForm, InviteUserForm
 
 
 # Login Page
@@ -16,7 +16,7 @@ from signalapp.forms import LoginForm
 def login():
 	# Verifies user is logged out
 	if (current_user.is_authenticated):
-		return (url_for('home'))
+		return (redirect(url_for('home')))
 
 	form = LoginForm()
 
@@ -49,17 +49,39 @@ def admin():
 	if (User.get_user_role(current_user) != 'admin'):
 		return (render_template('home.html'))
 
-	return (render_template('admin.html'))
-
+	return (render_template('admin.html', title='Administrative'))
 
 # User Invatation Page
-@app.route("/invite")
+@app.route("/invite", methods=['GET', 'POST'])
 @login_required
 def invite():
-	return (render_template('invite.html'))
+	if (User.get_user_role(current_user) != 'admin'):
+		return (render_template('home.html'))
+
+	form = InviteUserForm()
+	if (form.validate_on_submit()):
+		user = User(email=form.email.data)
+		db.session.add(user)
+		db.session.commit()
+		send_invite_email(user)
+
+		flash('User has been invited')
+		return (redirect('admin'))
+
+	return (render_template('invite.html', form=form, title='Invite User'))
 
 
 
+def send_invite_email(user):
+	token = user.get_invite_token()
+
+	msg = Message('Invatation to Signal Way', sender='noreply@signalway.com', recipients=[user.email])
+	msg.body = f'''
+	You have been invited to join Signal Way, please use the following link to sign up:
+	{ url_for('home', _external=True) }
+	'''
+
+	mail.send(msg)
 
 
 

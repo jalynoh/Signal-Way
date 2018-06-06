@@ -13,3 +13,12 @@ class LoginForm(FlaskForm):
 	password = PasswordField('Password', validators=[DataRequired()])
 	remember = BooleanField('Remeber Me')
 	submit = SubmitField('Login')
+
+class InviteUserForm(FlaskForm):
+	email = StringField('Email', validators=[DataRequired(), Email()])
+	submit = SubmitField('Invite')
+
+	def validate_email(self, email):
+		user = User.query.filter_by(email=email.data).first()
+		if (user):
+			raise ValidationError('Email already in use')
