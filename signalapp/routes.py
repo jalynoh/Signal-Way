@@ -8,7 +8,7 @@ from flask_mail import Message
 # Self developed imports
 from signalapp import app, db, bcrypt, mail
 from signalapp.models import User, Button
-from signalapp.forms import LoginForm, InviteUserForm
+from signalapp.forms import LoginForm, InviteUserForm, InvitedCreationForm
 
 
 # Login Page
@@ -78,10 +78,57 @@ def send_invite_email(user):
 	msg = Message('Invatation to Signal Way', sender='noreply@signalway.com', recipients=[user.email])
 	msg.body = f'''
 	You have been invited to join Signal Way, please use the following link to sign up:
-	{ url_for('home', _external=True) }
+	{ url_for('invited_creation', token=token, _external=True) }
 	'''
 
 	mail.send(msg)
+
+
+@app.route("/user_creation/<token>", methods=['GET', 'POST'])
+def invited_creation(token):
+	if current_user.is_authenticated:
+		return (redirect(url_for('logout')))
+
+	user = User.verify_invite_token(token)
+
+	if user is None:
+		flash('Expired token')
+		return (redirect(url_for('login')))
+
+	form = InvitedCreationForm()
+	if (form.validate_on_submit()):
+		hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
+		user.password = hashed_password
+		user.first_name = form.first_name.data
+		user.last_name = form.last_name.data
+		db.session.commit()
+
+		return (redirect(url_for('login')))
+
+	return (render_template('invatation_creation.html', form=form, title='Registration'))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

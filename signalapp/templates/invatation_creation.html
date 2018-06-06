@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% block content %}
+
+	<form method="POST" action="">
+		<!-- To prevent CSRF attacks, uses the SECRET_KEY -->
+		{{ form.hidden_tag() }}
+		<fieldset>
+			<legend>Registration</legend>
+			<!-- First_Name label and field -->
+			<div>
+				{{ form.first_name.label }}
+
+				{% if form.first_name.errors %}
+					{{ form.first_name }}
+					<div>
+						{% for error in form.first_name.errors %}
+							<span>{{ error }}</span>
+						{% endfor %}
+					</div>
+				{% else %}
+					{{ form.first_name }}
+				{% endif %}
+			</div>
+			<!-- Last_Name label and field -->
+			<div>
+				{{ form.last_name.label }}
+
+				{% if form.last_name.errors %}
+					{{ form.last_name }}
+					<div>
+						{% for error in form.last_name.errors %}
+							<span>{{ error }}</span>
+						{% endfor %}
+					</div>
+				{% else %}
+					{{ form.last_name }}
+				{% endif %}
+			</div>
+			<!-- Password label and field -->
+			<div>
+				{{ form.password.label }}
+
+				{% if form.password.errors %}
+					{{ form.password }}
+					<div>
+						{% for error in form.password.errors %}
+							<span>{{ error }}</span>
+						{% endfor %}
+					</div>
+				{% else %}
+					{{ form.password }}
+				{% endif %}
+			</div>
+			<!-- confirm_password label and field -->
+			<div>
+				{{ form.confirm_password.label }}
+
+				{% if form.confirm_password.errors %}
+					{{ form.confirm_password }}
+					<div>
+						{% for error in form.confirm_password.errors %}
+							<span>{{ error }}</span>
+						{% endfor %}
+					</div>
+				{% else %}
+					{{ form.confirm_password }}
+				{% endif %}
+			</div>
+		</fieldset>
+		<!-- Submit button -->
+		<div class="div-btn">
+			{{ form.submit(class="btn-login") }}
+		</div>
+	</form>
+
+{% endblock content %}

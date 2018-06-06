@@ -22,3 +22,10 @@ class InviteUserForm(FlaskForm):
 		user = User.query.filter_by(email=email.data).first()
 		if (user):
 			raise ValidationError('Email already in use')
+
+class InvitedCreationForm(FlaskForm):
+	first_name = StringField('First Name', validators=[DataRequired()])
+	last_name = StringField('Last Name', validators=[DataRequired()])
+	password = PasswordField('Password', validators=[DataRequired()])
+	confirm_password = PasswordField('Password', validators=[DataRequired(), EqualTo('password')])
+	submit = SubmitField('Register')
