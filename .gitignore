@@ -1,5 +1,6 @@
 # Self Added Ignores
 local_envars.py
+.DS_Store
 
 
 # PRE DEFINED GITIGNORES 
