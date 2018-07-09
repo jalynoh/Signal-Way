@@ -1,29 +1,114 @@
-ul {
-    list-style-type: none;
+* {
     margin: 0;
     padding: 0;
+    border: 0;
+}
+
+/* The navigation bar */
+.navbar {
     overflow: hidden;
-    background-color: #d2d7d3;
+    background-color: #333;
+    position: fixed; /* Set the navbar to fixed position */
+    top: 0; /* Position the navbar at the top of the page */
+    width: 100%; /* Full width */
+    height: 3.75%;
 }
 
-li {
+/* Links inside the navbar */
+.navbar a {
     float: left;
-}
-
-li a {
     display: block;
-    color: #6c7a89;
+    color: #ffffff;
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
 }
 
-/* Change the link color to #111 (black) on hover */
-li a:hover {
-    background-color: #6c7a89;
-    color: #ffffff;
+/* Change background on mouse-over */
+.navbar a:hover {
+    background: #ddd;
+    color: black;
 }
 
-.li-nav-right {
-	float: right;
+/* Main content */
+.main {
+    margin-top: 2%; /* Add a top margin to avoid content overlay */
 }
+
+
+
+
+/*BUTTON LIST*/
+.sidenav {
+    height: 100%;
+    width: 8%;
+    position: fixed;
+    background-color: #333;
+    overflow-x: hidden;
+    padding-top: 20px;
+}
+
+.sidenav a {
+    padding: 6px 8px 6px 16px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+}
+
+.sidenav a:hover {
+    color: #f1f1f1;
+}
+
+
+
+/*BUTTON TABLE*/
+.container {
+    width: 92%;
+    padding: 0 0 0 8%;
+}
+
+table
+{
+    width: 100%;
+    border-collapse: collapse;
+}
+
+thead
+{
+    color: #fff;
+    background: #000;
+}
+
+tbody
+{
+    width: 100%;
+    background: #ddd;
+}
+
+th,td
+{
+    padding: .5em 1em;
+    text-align: left;
+    vertical-align: top;
+    border-left: 1px solid #fff;
+}
+
+tr:nth-child(even) {
+    background: #fff;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -105,13 +105,16 @@ def invited_creation(token):
 
 		return (redirect(url_for('login')))
 
-	return (render_template('invatation_creation.html', form=form, title='Registration'))
+	return (render_template('invitation_creation.html', form=form, title='Registration'))
 
-
-
-
-
-
+'''
+BUTTON PAGES
+'''
+@app.route("/button_list")
+@login_required
+def button_list():
+	
+	return (render_template('button_list.html'))
 
 
 

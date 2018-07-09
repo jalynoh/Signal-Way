@@ -12,17 +12,14 @@
 </head>
 <body>
 	<header>
-		<nav>
-			<ul>
-				<li><a href="{{ url_for('home') }}">Home</a></li>
-				<li><a href="#NEEDSET">Buttons</a></li>
-				<li class="li-nav-right"><a href="{{ url_for('admin') }}">Admin</a></li>
-				<li class="li-nav-right"><a href="{{ url_for('logout') }}">Logout</a></li>
-			</ul>
-		</nav>
+		<div class="navbar">
+			<a href="{{ url_for('home') }}">HOME</a>
+			<a href="{{ url_for('admin') }}">ADMIN</a>
+			<a href="{{ url_for('logout') }}">LOGOUT</a>
+		</div>
 	</header>
 	<main>
-		<div>
+		<div class="main">
 			{% with messages = get_flashed_messages() %}
 				{% if messages %}
 					{{ message }}
