@@ -75,7 +75,7 @@ def invite():
 def send_invite_email(user):
 	token = user.get_invite_token()
 
-	msg = Message('Invatation to Signal Way', sender='noreply@signalway.com', recipients=[user.email])
+	msg = Message('Invitation to Signal Way', sender='noreply@signalway.com', recipients=[user.email])
 	msg.body = f'''
 	You have been invited to join Signal Way, please use the following link to sign up:
 	{ url_for('invited_creation', token=token, _external=True) }
