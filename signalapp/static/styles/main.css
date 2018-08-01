@@ -7,6 +7,7 @@
 /* The navigation bar */
 .navbar {
     overflow: hidden;
+    font-size: 100%;
     background-color: #333;
     position: fixed; /* Set the navbar to fixed position */
     top: 0; /* Position the navbar at the top of the page */
@@ -51,7 +52,7 @@
 .sidenav a {
     padding: 6px 8px 6px 16px;
     text-decoration: none;
-    font-size: 25px;
+    font-size: 100%;
     color: #818181;
     display: block;
 }

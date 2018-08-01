@@ -28,7 +28,7 @@ def login():
 		else:
 			flash('Login unsuccessful. Please check email and password')
 
-	return (render_template('login.html', form=form))
+	return (render_template('login2.html', form=form))
 
 # Logout
 @app.route("/logout")
@@ -87,7 +87,7 @@ def send_invite_email(user):
 @app.route("/user_creation/<token>", methods=['GET', 'POST'])
 def invited_creation(token):
 	if current_user.is_authenticated:
-		return (redirect(url_for('logout')))
+		logout_user()
 
 	user = User.verify_invite_token(token)
 
